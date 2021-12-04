@@ -1,7 +1,6 @@
 with open("input.txt","r") as f:
     data = [x.strip().split(" ") for x in f.readlines()]
-    horizontal = 0
-    depth=0
+    horizontal = depth= 0
     for x in data: 
         match x[0]:
             case "forward":
@@ -11,9 +10,7 @@ with open("input.txt","r") as f:
             case "down":
                 depth += int(x[1])
     print(horizontal * depth)
-    aim = 0
-    horizontal = 0
-    depth=0
+    aim = horizontal = depth = 0
     for x in data: 
         match x[0]:
             case "forward":
