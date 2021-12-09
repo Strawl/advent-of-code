@@ -27,19 +27,12 @@ with open("input.txt", "r") as f:
     marking = np.zeros(shape=bingoboards.shape)
     last = 0
     for num in bingo_input:
-        # get all the boards, where someone has won vertically
-        bingo_vertical = np.where(np.sum(marking,axis=1) == 5)
+        # get all the boards that win 
+        bingo = np.concatenate([np.where(np.sum(marking,axis=1) == 5 )[0], np.where(np.sum(marking,axis=2) == 5)[0]])
 
-        # delete all those boards
-        bingoboards = np.delete(bingoboards,bingo_vertical[0],axis=0)
-        marking = np.delete(marking,bingo_vertical[0], axis=0)
-
-        # get all the boards, where someone has won horizontally
-        bingo_horizontal = np.where(np.sum(marking,axis=2) == 5)
-
-        # delete all those boards
-        bingoboards = np.delete(bingoboards,bingo_horizontal[0],axis=0)
-        marking = np.delete(marking,bingo_horizontal[0],axis=0)
+        # delete thos boards
+        bingoboards = np.delete(bingoboards,bingo,axis=0)
+        marking = np.delete(marking,bingo, axis=0)
 
         # Cross every number, that has the 'num' number
         marking = np.where(bingoboards == num, 1, marking)
